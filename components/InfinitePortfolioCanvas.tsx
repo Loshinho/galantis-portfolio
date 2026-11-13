@@ -1019,6 +1019,8 @@ export default function InfinitePortfolioCanvas({
       const staticImageUrls: string[] = [
         '/logo/logo.png',
         '/logo/eu.jpg',
+        '/logo/iconpage.png',
+        '/logo/preview.jpg',
         '/promos/natal-bg.jpg',
       ];
 

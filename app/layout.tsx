@@ -11,35 +11,41 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://galantis.online'),
-  title: 'Galantis | Fotografia Profissional',
-  description:
-    'Portfólio fotográfico de Julio Aparecido de Oliveira (Galantis). Fotografia de ensaios, retratos, eventos e sessões especiais.',
+  title: 'Galantis Fotografias',
+  description: 'Portfólio Galantis. Fotografia de ensaios, eventos e sessões especiais.',
+  icons: {
+    icon: '/logo/iconpage.png',
+    shortcut: '/logo/iconpage.png',
+    apple: '/logo/iconpage.png',
+  },
   openGraph: {
-    title: 'Galantis | Fotografia Profissional',
-    description:
-      'Portfólio fotográfico de Julio Aparecido de Oliveira (Galantis). Fotografia de ensaios, retratos, eventos e sessões especiais.',
+    title: 'Galantis Fotografias',
+    description: 'Portfólio Galantis. Fotografia de ensaios, eventos e sessões especiais.',
     type: 'website',
     images: [
       {
-        url: '/logo/logo.png',
-        width: 800,
-        height: 600,
-        alt: 'Galantis Fotografia',
+        url: '/logo/preview.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Galantis Fotografias',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Galantis | Fotografia Profissional',
-    description:
-      'Portfólio fotográfico de Julio Aparecido de Oliveira (Galantis). Ensaios, retratos e sessões especiais.',
-    images: ['/logo/logo.png'],
+    title: 'Galantis Fotografias',
+    description: 'Portfólio Galantis. Fotografia de ensaios, eventos e sessões especiais.',
+    images: ['/logo/preview.jpg'],
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" className={`${cormorant.variable} dark`}>
+      <head>
+        <link rel="icon" href="/logo/iconpage.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/logo/iconpage.png" />
+      </head>
       <body
         suppressHydrationWarning
         className="bg-black text-white antialiased overflow-hidden select-none m-0 p-0"
