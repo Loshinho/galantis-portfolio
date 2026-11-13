@@ -1,20 +1,21 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# Galantis - Portfólio Fotográfico Profissional
 
-# Run and deploy your AI Studio app
+Portfólio fotográfico interativo 3D para Galantis (Julio Aparecido de Oliveira) desenvolvido com Next.js, WebGL2 e Tailwind CSS.
 
-This contains everything you need to run your app locally.
+## Recursos
+- **Galeria 3D Esférica Infinita**: Navegação fluida em 360° com arraste tátil, inércia suave e zoom óptico.
+- **Carrossel 1:1 de Feedbacks**: Depoimentos interativos em cilindro 3D com rotação física.
+- **Efeitos de Áudio Tactil**: Som suave ao interagir com o menu e carrossel via Web Audio API.
+- **Carregamento Otimizado**: Pré-carregamento dinâmico das 109 fotos do portfólio diretamente para a placa de vídeo.
 
-View your app in AI Studio: https://ai.studio/apps/4d645341-a9c4-4dec-ad39-8b0a8200a6d9
+## Desenvolvimento
+```bash
+npm install
+npm run dev
+```
 
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Build
+```bash
+npm run build
+npm start
+```

@@ -363,10 +363,9 @@ export default function InfinitePortfolioCanvas({
         const ext = probe.getExtension('WEBGL_debug_renderer_info');
         const param = ext ? ext.UNMASKED_RENDERER_WEBGL : probe.RENDERER;
         const gpu = String(probe.getParameter(param));
-        probe.getExtension('WEBGL_lose_context')?.loseContext();
         return /SwiftShader|llvmpipe|softpipe|Basic Render/i.test(gpu);
       } catch {
-        return true;
+        return false;
       }
     })();
 
@@ -378,6 +377,10 @@ export default function InfinitePortfolioCanvas({
       powerPreference: 'high-performance',
       preserveDrawingBuffer: isSoftwareGl,
     });
+
+    if (gl) {
+      gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    }
 
     const compileProgram = (
       ctx: WebGL2RenderingContext,
@@ -673,13 +676,21 @@ export default function InfinitePortfolioCanvas({
       viewportH = window.innerHeight || 900;
       dpr = isSoftwareGl ? 1 : Math.min(window.devicePixelRatio || 1, 1.35);
 
-      displayCanvas.width = Math.round(viewportW * dpr);
-      displayCanvas.height = Math.round(viewportH * dpr);
+      const rawCanvasW = Math.round(viewportW * dpr);
+      const rawCanvasH = Math.round(viewportH * dpr);
+      displayCanvas.width = (rawCanvasW + 3) & ~3;
+      displayCanvas.height = (rawCanvasH + 3) & ~3;
       displayCanvas.style.width = `${viewportW}px`;
       displayCanvas.style.height = `${viewportH}px`;
 
-      fboWidth = Math.round(viewportW * (1 + 2 * OVERSCAN_PAD_RATIO) * dpr);
-      fboHeight = Math.round(viewportH * (1 + 2 * OVERSCAN_PAD_RATIO) * dpr);
+      const rawFboW = Math.round(viewportW * (1 + 2 * OVERSCAN_PAD_RATIO) * dpr);
+      const rawFboH = Math.round(viewportH * (1 + 2 * OVERSCAN_PAD_RATIO) * dpr);
+      fboWidth = (rawFboW + 3) & ~3;
+      fboHeight = (rawFboH + 3) & ~3;
+
+      if (gl) {
+        gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+      }
 
       if (gl && fbo && fboTexture) {
         gl.bindTexture(gl.TEXTURE_2D, fboTexture);
