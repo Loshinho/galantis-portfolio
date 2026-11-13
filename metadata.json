@@ -1,0 +1,6 @@
+{
+  "name": "Galantis Portfolio",
+  "description": "Interactive infinite 3D spherical photography portfolio for Galantis with omnidirectional panning, tactile zoom-out, and cinematic corner chromatic aberration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
