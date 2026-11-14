@@ -1378,7 +1378,7 @@ export default function InfinitePortfolioCanvas({
         {/* Synchronized native anchor for the Promo Frame "RESERVAR" button */}
         <a
           ref={reservarLinkRef}
-          href="https://wa.me/55319995977942?text=Ol%C3%A1!%20Quero%20reservar%20minha%20Sess%C3%A3o%20Especial%20de%20Natal%20na%20Galantis."
+          href="https://wa.me/5531995977942?text=Ol%C3%A1!%20Quero%20reservar%20minha%20Sess%C3%A3o%20Especial%20de%20Natal%20na%20Galantis."
           target="_blank"
           rel="noopener noreferrer"
           data-testid="promo-reservar-button"

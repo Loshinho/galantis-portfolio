@@ -790,7 +790,7 @@ export default function GalantisHeader({
             className="flex items-center justify-center gap-6 md:gap-8 pt-3 md:pt-5"
           >
             <a
-              href="https://wa.me/55319995977942"
+              href="https://wa.me/5531995977942"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"

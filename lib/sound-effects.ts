@@ -112,6 +112,7 @@ export function detectFeedbackSlotStep(
 let sharedAudioCtx: AudioContext | null = null;
 let noiseBuffer: AudioBuffer | null = null;
 let lastStepSoundTimeMs = 0;
+let audioUnlocked = false;
 
 const customSoundUrls: Record<SoundEffectType, string> = { ...DEFAULT_SOUND_FILES };
 const customAudioBuffers = new Map<SoundEffectType, AudioBuffer>();
@@ -137,6 +138,60 @@ function getAudioContext(): AudioContext | null {
   }
 
   return sharedAudioCtx;
+}
+
+/**
+ * Unlocks iOS Safari Web Audio API restriction on user interaction gesture.
+ */
+export function unlockAudioContextOnIos(): void {
+  if (typeof window === 'undefined' || audioUnlocked) return;
+
+  const unlock = () => {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    if (ctx.state === 'suspended') {
+      ctx.resume().catch(() => {});
+    }
+
+    try {
+      const buffer = ctx.createBuffer(1, 1, 22050);
+      const source = ctx.createBufferSource();
+      source.buffer = buffer;
+      source.connect(ctx.destination);
+      source.start(0);
+    } catch {
+      // Ignore
+    }
+
+    rawArrayBuffers.forEach((arrBuf, type) => {
+      if (!customAudioBuffers.has(type)) {
+        ctx
+          .decodeAudioData(arrBuf.slice(0))
+          .then((decoded) => {
+            customAudioBuffers.set(type, decoded);
+          })
+          .catch(() => {});
+      }
+    });
+
+    if (ctx.state === 'running') {
+      audioUnlocked = true;
+      window.removeEventListener('touchstart', unlock, true);
+      window.removeEventListener('touchend', unlock, true);
+      window.removeEventListener('click', unlock, true);
+      window.removeEventListener('pointerdown', unlock, true);
+    }
+  };
+
+  window.addEventListener('touchstart', unlock, { capture: true, passive: true });
+  window.addEventListener('touchend', unlock, { capture: true, passive: true });
+  window.addEventListener('click', unlock, { capture: true, passive: true });
+  window.addEventListener('pointerdown', unlock, { capture: true, passive: true });
+}
+
+if (typeof window !== 'undefined') {
+  unlockAudioContextOnIos();
 }
 
 /**
